@@ -1,0 +1,449 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Six Months With You ♡</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap');
+
+:root {
+  --pink: #d98fa5;
+  --rose: #a95e78;
+  --cream: #fffaf5;
+  --soft: #f8e8e9;
+  --text: #624b50;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 10% 10%, #fce5e8, transparent 35%),
+    radial-gradient(circle at 90% 80%, #f9e6d9, transparent 35%),
+    var(--cream);
+  overflow-x: hidden;
+}
+
+button { font-family: inherit; cursor: pointer; }
+
+.screen {
+  display: none;
+  min-height: 100vh;
+  padding: 35px 20px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  animation: appear .8s ease;
+}
+
+.screen.active { display: flex; }
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.content {
+  width: 100%;
+  max-width: 700px;
+  margin: auto;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: var(--rose);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+h1, h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
+}
+
+h1 {
+  font-size: clamp(42px, 9vw, 76px);
+  line-height: 1.12;
+  margin: 20px 0;
+}
+
+h2 { font-size: clamp(30px, 6vw, 46px); }
+
+p {
+  line-height: 1.9;
+  font-size: 15px;
+}
+
+.heart {
+  color: var(--pink);
+  font-size: 65px;
+  animation: heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+.btn {
+  background: var(--rose);
+  color: white;
+  border: none;
+  padding: 14px 27px;
+  border-radius: 40px;
+  font-size: 14px;
+  margin: 10px 5px;
+  transition: .3s;
+  box-shadow: 0 5px 15px #a95e7830;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  background: #86475e;
+}
+
+.btn.light {
+  background: #f5e2e5;
+  color: var(--rose);
+}
+
+.card {
+  background: #ffffffb8;
+  border: 1px solid #efd9dd;
+  border-radius: 22px;
+  padding: 28px;
+  margin: 20px auto;
+  box-shadow: 0 12px 35px #a95e7810;
+  backdrop-filter: blur(8px);
+}
+
+.letter {
+  text-align: left;
+  white-space: pre-line;
+  line-height: 2;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 13px;
+  margin-top: 25px;
+}
+
+.reason {
+  background: #fff;
+  border: 1px solid #f0dce0;
+  border-radius: 18px;
+  padding: 22px 12px;
+  cursor: pointer;
+  min-height: 125px;
+  transition: .3s;
+}
+
+.reason:hover {
+  transform: translateY(-5px);
+  background: #fff0f2;
+}
+
+.reason .hidden {
+  display: none;
+  color: var(--rose);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.reason.open .hidden { display: block; }
+.reason.open .teaser { display: none; }
+
+.memory {
+  background: #fff;
+  border-radius: 18px;
+  padding: 23px 15px;
+  border: 1px solid #f0dce0;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.memory:hover { transform: scale(1.03); }
+.memory p { font-size: 13px; }
+
+.big-emoji { font-size: 32px; }
+
+#memoryText {
+  min-height: 95px;
+  transition: .3s;
+}
+
+.progress {
+  height: 5px;
+  background: #f1dfe2;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 20px auto;
+  max-width: 300px;
+}
+
+.progress span {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: var(--rose);
+  transition: .4s;
+}
+
+.choice {
+  background: white;
+  border: 1px solid #e9cbd3;
+  color: var(--rose);
+  border-radius: 30px;
+  padding: 12px 22px;
+  margin: 7px;
+}
+
+.choice:hover { background: #fbe8ec; }
+
+.floating {
+  position: fixed;
+  bottom: -30px;
+  pointer-events: none;
+  z-index: 10;
+  animation: floatUp 6s linear forwards;
+}
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+footer {
+  margin-top: 30px;
+  font-size: 11px;
+  opacity: .6;
+}
+
+@media(max-width:480px) {
+  .grid { gap: 9px; }
+  .card { padding: 21px; }
+  p { font-size: 14px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SCREEN 1: INTRO -->
+<section class="screen active" id="intro">
+  <div class="content">
+    <div class="eyebrow">a little something for you</div>
+    <div class="heart">♥</div>
+    <h1>Six Months<br>With You.</h1>
+    <p>
+      Six months of laughter, kulit, lambing, random moments,
+      and a love that I wouldn't trade for anything.
+    </p>
+    <p>Are you ready for your little surprise, mahal?</p>
+    <button class="btn" onclick="go('letter')">Open your surprise ♡</button>
+    <footer>made with love, just for you</footer>
+  </div>
+</section>
+
+<!-- SCREEN 2: LETTER -->
+<section class="screen" id="letter">
+  <div class="content">
+    <div class="eyebrow">a letter from me to you</div>
+    <h2>Dear Mahal, ♡</h2>
+
+    <div class="card letter">
+Happy 6th monthsary, babyyy!!
+
+Grabe, six months na tayo. Half a year of choosing each other, laughing at the most random things, being clingy, having our little tampuhans, and sometimes being two stubborn people na ayaw magpatalo. HAHAHA.
+
+I know I'm not always the easiest person to deal with. Minsan makulit, minsan annoying, minsan feeling funny kahit hindi naman. But I hope you know that behind all those jokes, You have someone who genuinely loves you and appreciates you so much.
+
+Thank you for staying, for understanding me, for making ordinary days feel special, and for giving me reasons to smile even when things get a little difficult.
+
+I don't expect every day to be perfect. I just want us to keep learning, growing, laughing, and choosing each other. I want more random conversations, more dates, more memories, more kulit moments, and more monthsaries with you.
+
+If I could go back to the beginning, I'd still choose you. Kahit alam ko na kung gaano ka kakulit. HAHAHA.
+
+I love you so much, mahal. Here's to our first six months and to all the beautiful chapters waiting for us.
+
+Always your person,
+Your Ren ♡
+    </div>
+
+    <button class="btn" onclick="go('reasons')">Continue, love →</button>
+  </div>
+</section>
+
+<!-- SCREEN 3: SIX REASONS -->
+<section class="screen" id="reasons">
+  <div class="content">
+    <div class="eyebrow">little things i adore</div>
+    <h2>Six Reasons Why I Love You</h2>
+    <p>Tap each card. May surprise ka sa bawat isa. ♡</p>
+
+    <div class="grid">
+      <div class="reason" onclick="reveal(this)">
+        <div class="teaser">01<br>♡<br>Your smile</div>
+        <div class="hidden">Because your smile makes even my worst days feel a little lighter.</div>
+      </div>
+
+      <div class="reason" onclick="reveal(this)">
+        <div class="teaser">02<br>♡<br>Your personality</div>
+        <div class="hidden">Because you're uniquely you. And I wouldn't change a thing about that.</div>
+      </div>
+
+      <div class="reason" onclick="reveal(this)">
+        <div class="teaser">03<br>♡<br>Your love</div>
+        <div class="hidden">Because you make me feel appreciated, cared for, and loved.</div>
+      </div>
+
+      <div class="reason" onclick="reveal(this)">
+        <div class="teaser">04<br>♡<br>Your laugh</div>
+        <div class="hidden">Because hearing you laugh is one of my favorite sounds.</div>
+      </div>
+
+      <div class="reason" onclick="reveal(this)">
+        <div class="teaser">05<br>♡<br>Your little quirks</div>
+        <div class="hidden">Even your kulit moments. Yes, pati yung nakakainis. HAHAHA.</div>
+      </div>
+
+      <div class="reason" onclick="reveal(this)">
+        <div class="teaser">06<br>♡<br>Simply you</div>
+        <div class="hidden">Because I don't need a hundred reasons. Being you is already enough.</div>
+      </div>
+    </div>
+
+    <div class="progress"><span id="reasonProgress"></span></div>
+    <p id="reasonCount">0 of 6 opened</p>
+    <button class="btn" onclick="go('question')">Next surprise →</button>
+  </div>
+</section>
+
+
+
+<!-- SCREEN 4: QUESTION -->
+<section class="screen" id="question">
+  <div class="content">
+    <div class="heart">♡</div>
+    <div class="eyebrow">important question!</div>
+    <h2>Will you keep being my favorite person?</h2>
+    <p>And tolerate my kakulitan for many more months? HAHAHA.</p>
+
+    <button class="choice" onclick="answer(true)">YES, OF COURSE! ♡</button>
+    <button class="choice" onclick="answer(false)">Hmm, let me think...</button>
+
+    <div class="card" id="answerBox" style="display:none">
+      <h3 id="answerTitle"></h3>
+      <p id="answerMessage"></p>
+    </div>
+
+    <button class="btn" onclick="go('final')">Open your final surprise ♡</button>
+  </div>
+</section>
+
+<!-- SCREEN 5: FINAL -->
+<section class="screen" id="final">
+  <div class="content">
+    <div class="eyebrow">and finally...</div>
+    <div class="heart">♥</div>
+    <h1>It's Always<br>You.</h1>
+
+    <div class="card">
+      <h2>Happy 6th Monthsary!</h2>
+      <p>
+        Out of all the people in this world, I'm glad that
+        I get to call you mine.
+      </p>
+      <p>
+        Six months down, and I still have so much love
+        to give you. I hope we get to celebrate countless
+        more milestones together.
+      </p>
+      <p><b>I love you, mahal. Always. ♡</b></p>
+      <p>— Your Ren</p>
+    </div>
+
+    <button class="btn" onclick="celebrate()">Send a thousand hearts ♥</button>
+    <button class="btn light" onclick="go('intro')">Read it all again ↻</button>
+    <footer>made for my favorite girl, with all my love.</footer>
+  </div>
+</section>
+
+<script>
+function go(id) {
+  document.querySelectorAll('.screen').forEach(s => {
+    s.classList.remove('active');
+  });
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+let opened = 0;
+
+function reveal(card) {
+  if (!card.classList.contains('open')) {
+    card.classList.add('open');
+    opened++;
+    document.getElementById('reasonCount').textContent =
+      opened + ' of 6 opened';
+    document.getElementById('reasonProgress').style.width =
+      (opened / 6 * 100) + '%';
+    floatHeart();
+  }
+}
+
+function answer(yes) {
+  const box = document.getElementById('answerBox');
+  box.style.display = 'block';
+
+  if (yes) {
+    document.getElementById('answerTitle').textContent =
+      'YIEEEEE! I LOVE YOU! 🥹';
+    document.getElementById('answerMessage').textContent =
+      'Good answer! Wala ka nang choice, joke! HAHAHA. ' +
+      'Thank you for choosing us. I will keep choosing you too. ♡';
+    celebrate();
+  } else {
+    document.getElementById('answerTitle').textContent =
+      'EXCUSE ME?! 😭';
+    document.getElementById('answerMessage').textContent =
+      'Take your time, love. But remember, may free lifetime supply of lambing, hugs, and bad jokes dito. HAHAHA. Try again?';
+  }
+}
+
+function floatHeart() {
+  const heart = document.createElement('div');
+  heart.className = 'floating';
+  heart.textContent = ['♥','♡','💗','💕'][Math.floor(Math.random()*4)];
+  heart.style.left = Math.random()*100 + 'vw';
+  heart.style.fontSize = (15 + Math.random()*20) + 'px';
+  heart.style.color = '#d98fa5';
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}
+
+function celebrate() {
+  for(let i=0; i<35; i++) {
+    setTimeout(floatHeart, i*100);
+  }
+}
+
+// Gentle floating hearts in the background
+setInterval(() => {
+  if(Math.random() > .45) floatHeart();
+}, 1800);
+</script>
+
+</body>
+</html>
